@@ -56,8 +56,15 @@ void loop() {
     if (file.length()) {
       Serial.println(file);
       audio.connecttoFS(SD, file.c_str());
+      uint8_t b = 0;
+      int step = 5;
       while (audio.isRunning()) {
         audio.loop();
+        leds[0] = CRGB(0, b, 0);
+        FastLED.show();
+        b += step;
+        if (b == 0 || b == 250) step = -step;
+        delay(10);
       }
     }
     leds[0] = CRGB::Black;

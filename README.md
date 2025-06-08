@@ -20,3 +20,14 @@ Install these libraries through the Arduino Library Manager before compiling the
 ## Usage
 
 Upload the sketch to the ESP32-Korvo. When you press the button the board selects a random file from `/audio` on the SD card and plays it through the on‑board audio output. The LED lights during playback.
+
+## ESP-IDF Example
+
+For developers using the ESP-IDF, a minimal example is provided in `examples/IDF_RandomAudioPlayer`. It plays a random WAV file from the SD card whenever GPIO0 is pressed. Build it with:
+
+```bash
+idf.py set-target esp32
+idf.py flash monitor
+```
+
+The audio files must be placed inside `/sdcard/audio` on the SD card in standard WAV format.
