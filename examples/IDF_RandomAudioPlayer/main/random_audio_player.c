@@ -90,8 +90,14 @@ static char* random_audio_file(void)
     for (int i = 0; i <= target; ++i) {
         entry = readdir(dir);
     }
-    char *path = malloc(64);
-    snprintf(path, 64, SD_MOUNT_POINT "/audio/%s", entry->d_name);
+    const char *prefix = SD_MOUNT_POINT "/audio/";
+    size_t needed = strlen(prefix) + strlen(entry->d_name) + 1;
+    char *path = malloc(needed);
+    if (!path) {
+        closedir(dir);
+        return NULL;
+    }
+    snprintf(path, needed, "%s%s", prefix, entry->d_name);
     closedir(dir);
     return path;
 }
