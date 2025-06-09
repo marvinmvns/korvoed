@@ -13,6 +13,7 @@
 #include "driver/i2s_std.h"
 
 #define BUTTON_GPIO    GPIO_NUM_0
+#define LED_GPIO       GPIO_NUM_2
 #define SD_MOUNT_POINT "/sdcard"
 
 static i2s_chan_handle_t tx_chan;
@@ -106,6 +107,8 @@ void app_main(void)
 {
     ESP_ERROR_CHECK(sdcard_mount());
     i2s_init();
+    gpio_set_direction(LED_GPIO, GPIO_MODE_OUTPUT);
+    gpio_set_level(LED_GPIO, 1);
     gpio_set_direction(BUTTON_GPIO, GPIO_MODE_INPUT);
     gpio_pullup_en(BUTTON_GPIO);
 
